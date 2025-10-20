@@ -234,7 +234,7 @@
       }
     }
 
-    /* Responsividade do menu e grids */
+    /* Responsividade do menu, grids e card-container */
     @media (max-width: 992px) {
       .hero {
         flex-direction: column;
@@ -264,6 +264,7 @@
         grid-template-columns: 1fr;
         gap: 15px;
       }
+
       /* Menu hamburguer */
       .hamburger {
         display: flex;
@@ -277,8 +278,13 @@
       header nav .nav-links.active {
         display: flex;
       }
-    }
 
+      /* Card-container menor nas laterais */
+      .card-container {
+        margin: 20px 15px;
+        padding: 30px 20px;
+      }
+    }
   </style>
 </head>
 <body>
@@ -314,7 +320,6 @@
     </div>
   </section>
 
-  <!-- O Produto -->
   <section id="produto" class="card-container">
     <h2>O Produto</h2>
     <p style="text-align: justify;">
@@ -325,7 +330,6 @@
     </p>
   </section>
 
-  <!-- Funcionalidades -->
   <section id="funcionalidades" class="card-container">
     <h2>Funcionalidades</h2>
     <div class="grid">
@@ -336,7 +340,6 @@
     </div>
   </section>
 
-  <!-- Vantagens -->
   <section id="vantagens" class="card-container">
     <h2>Vantagens</h2>
     <div class="grid">
@@ -347,7 +350,6 @@
     </div>
   </section>
 
-  <!-- Sobre Nós -->
   <section id="sobre" class="card-container">
     <h2>Sobre Nós</h2>
     <p style="text-align: justify;">
@@ -356,7 +358,6 @@
     </p>
   </section>
 
-  <!-- Contato -->
   <section id="contato" class="card-container">
     <h2>Entre em Contato</h2>
     <form onsubmit="enviarFormulario(event)">
@@ -404,5 +405,3 @@
 
 </body>
 </html>
-
-
