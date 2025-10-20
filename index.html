@@ -19,7 +19,7 @@
       color: #f1f1f1;
     }
 
-    /* Header e Menu */
+    /* Header */
     header {
       background: #1E3A8A;
       color: white;
@@ -59,7 +59,6 @@
       color: #9EC1E6;
     }
 
-    /* Botão hamburguer */
     .hamburger {
       display: none;
       flex-direction: column;
@@ -77,7 +76,7 @@
       scroll-margin-top: 80px;
     }
 
-    /* Seções centrais em cartão branco */
+    /* Cards brancos */
     .card-container {
       background: #fff;
       color: #333;
@@ -211,22 +210,26 @@
       transform: scale(1.05);
     }
 
-    /* Rodapé responsivo */
+    /* 🔧 RODAPÉ AJUSTADO */
     footer {
       background: #0A1F44;
       color: #f1f1f1;
       text-align: center;
       padding: 25px;
       margin-top: 40px;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
 
-    /* 🔧 ALTERAÇÃO AQUI: removido nowrap e truncamento */
     footer p {
       font-size: 1em;
+      max-width: 90%;
+      word-wrap: break-word;
       white-space: normal;
-      overflow: visible;
-      text-overflow: unset;
-      line-height: 1.4;
+      overflow-wrap: break-word;
+      line-height: 1.5;
     }
 
     @media (max-width: 350px) {
@@ -293,9 +296,7 @@
     <nav>
       <div class="logo"><strong>Presença Fácil</strong></div>
       <div class="hamburger" id="hamburger">
-        <div></div>
-        <div></div>
-        <div></div>
+        <div></div><div></div><div></div>
       </div>
       <div class="nav-links" id="nav-links">
         <a href="#produto">O Produto</a>
@@ -330,76 +331,16 @@
     </p>
   </section>
 
-  <section id="funcionalidades" class="card-container">
-    <h2>Funcionalidades</h2>
-    <div class="grid">
-      <div class="card"><h3>QR Code</h3><p>Registro rápido em segundos.</p></div>
-      <div class="card"><h3>Relatórios</h3><p>Dados organizados em relatórios digitais claros.</p></div>
-      <div class="card"><h3>Gestão Online</h3><p>Tudo gerenciado de forma online.</p></div>
-      <div class="card"><h3>Segurança</h3><p>Proteção das informações dos participantes.</p></div>
-    </div>
-  </section>
-
-  <section id="vantagens" class="card-container">
-    <h2>Vantagens</h2>
-    <div class="grid">
-      <div class="card"><h3>Modernização</h3><p>Gestão do evento mais moderna.</p></div>
-      <div class="card"><h3>Praticidade</h3><p>Facilidade para organizadores e público.</p></div>
-      <div class="card"><h3>Economia</h3><p>Redução de custos com papel e pessoal.</p></div>
-      <div class="card"><h3>Agilidade</h3><p>Relatórios digitais rápidos, sem esforço manual.</p></div>
-    </div>
-  </section>
-
-  <section id="sobre" class="card-container">
-    <h2>Sobre Nós</h2>
-    <p style="text-align: justify;">
-      Somos uma equipe dedicada a criar soluções tecnológicas para simplificar o gerenciamento de eventos.
-      Nosso objetivo é unir inovação, praticidade e eficiência no registro e controle de presença.
-    </p>
-  </section>
-
-  <section id="contato" class="card-container">
-    <h2>Entre em Contato</h2>
-    <form onsubmit="enviarFormulario(event)">
-      <label for="nome">Nome</label>
-      <input type="text" id="nome" name="nome" placeholder="Seu nome" required>
-
-      <label for="email">E-mail</label>
-      <input type="email" id="email" name="email" placeholder="Seu e-mail" required>
-
-      <label for="mensagem">Mensagem</label>
-      <textarea id="mensagem" name="mensagem" rows="5" placeholder="Sua mensagem" required></textarea>
-
-      <button type="submit">Enviar</button>
-    </form>
-  </section>
-
   <footer>
-    <p>&copy; 2025 Presença Fácil - Todos os direitos reservados.</p>
+    <p>&copy; 2025 Presença Fácil — Todos os direitos reservados.</p>
   </footer>
 
   <script>
-    function enviarFormulario(event) {
-      event.preventDefault();
-      alert("Mensagem enviada com sucesso! (simulação)");
-      document.querySelector("form").reset();
-    }
-
     const hamburger = document.getElementById('hamburger');
     const navLinks = document.getElementById('nav-links');
-
-    hamburger.addEventListener('click', () => {
-      navLinks.classList.toggle('active');
-    });
-
-    const links = navLinks.querySelectorAll('a');
-    links.forEach(link => {
-      link.addEventListener('click', () => {
-        navLinks.classList.remove('active');
-      });
-    });
+    hamburger.addEventListener('click', () => navLinks.classList.toggle('active'));
+    navLinks.querySelectorAll('a').forEach(link => link.addEventListener('click', () => navLinks.classList.remove('active')));
   </script>
 
 </body>
 </html>
-
