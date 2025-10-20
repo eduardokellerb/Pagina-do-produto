@@ -1,292 +1,134 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Sistema de Registro de Presença</title>
   <style>
     /* Reset */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: 'Arial', sans-serif;
-    }
+    * { margin:0; padding:0; box-sizing:border-box; font-family: Arial, sans-serif; }
 
     body {
-      line-height: 1.6;
-      background: linear-gradient(180deg, #0A1F44, #1B2A49);
-      color: #f1f1f1;
+      line-height:1.6;
+      background: linear-gradient(180deg,#0A1F44,#1B2A49);
+      color:#f1f1f1;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
     }
 
-    /* Header */
+    /* HEADER */
     header {
-      background: #1E3A8A;
-      color: white;
-      padding: 15px 30px;
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+      background:#1E3A8A;
+      color:white;
+      padding:15px 30px;
+      position:sticky;
+      top:0;
+      z-index:1000;
+      box-shadow:0 4px 10px rgba(0,0,0,0.3);
     }
-
     header nav {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:16px;
+      flex-wrap:wrap;
     }
+    .logo { font-weight:700; font-size:1.05rem; }
 
-    header nav .logo {
-      font-weight: bold;
+    /* nav links */
+    .nav-links { display:flex; gap:10px; align-items:center; }
+    .nav-links a {
+      color:white; text-decoration:none; font-weight:700; padding:6px 10px; border-radius:6px;
+      transition: background .18s, color .18s;
     }
+    .nav-links a:hover { background: rgba(255,255,255,0.06); color:#9EC1E6; }
 
-    header nav .nav-links {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-    }
+    /* hamburger */
+    .hamburger { display:none; flex-direction:column; gap:5px; cursor:pointer; }
+    .hamburger div { width:26px; height:3px; background:white; border-radius:2px; }
 
-    header nav .nav-links a {
-      color: white;
-      text-decoration: none;
-      font-weight: bold;
-      padding: 5px 10px;
-      transition: color 0.3s;
-    }
+    /* anchor offset */
+    section { scroll-margin-top:88px; }
 
-    header nav .nav-links a:hover {
-      color: #9EC1E6;
-    }
-
-    .hamburger {
-      display: none;
-      flex-direction: column;
-      cursor: pointer;
-      gap: 5px;
-    }
-
-    .hamburger div {
-      width: 25px;
-      height: 3px;
-      background-color: white;
-    }
-
-    section {
-      scroll-margin-top: 80px;
-    }
-
-    /* Cards brancos */
+    /* CARD CONTAINER (branco) */
     .card-container {
-      background: #fff;
-      color: #333;
-      border-radius: 20px;
-      padding: 40px 30px;
-      margin: 50px auto;
-      max-width: 1000px;
-      box-shadow: 0 12px 30px rgba(0,0,0,0.3);
-      transition: transform 0.3s;
+      background:#fff; color:#333; border-radius:20px; padding:40px 30px;
+      margin:50px auto; max-width:1000px; box-shadow:0 12px 30px rgba(0,0,0,0.18);
+      transition:transform .25s;
     }
+    .card-container:hover { transform:translateY(-4px); }
+    .card-container h2 { text-align:center; margin-bottom:28px; color:#1E3A8A; font-size:1.9rem; }
 
-    .card-container:hover {
-      transform: translateY(-5px);
-    }
-
-    .card-container h2 {
-      text-align: center;
-      margin-bottom: 35px;
-      color: #1E3A8A;
-      font-size: 2em;
-    }
-
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 25px;
-    }
-
+    /* GRID */
+    .grid { display:grid; grid-template-columns:repeat(4,1fr); gap:24px; }
     .card {
-      background: #fff;
-      color: #333;
-      padding: 25px 20px;
-      border-radius: 15px;
-      text-align: center;
-      box-shadow: 0 8px 25px rgba(0,0,0,0.2);
-      transition: transform 0.3s, box-shadow 0.3s;
+      background:#fff; color:#333; padding:20px; border-radius:12px; text-align:center;
+      box-shadow:0 8px 20px rgba(0,0,0,0.08); transition:transform .18s, box-shadow .18s;
     }
+    .card:hover { transform:translateY(-8px); box-shadow:0 14px 30px rgba(0,0,0,0.12); }
+    .card h3 { color:#1E3A8A; margin-bottom:10px; }
 
-    .card:hover {
-      transform: translateY(-8px);
-      box-shadow: 0 12px 35px rgba(0,0,0,0.35);
-    }
-
-    .card h3 {
-      margin-bottom: 12px;
-      color: #1E3A8A;
-    }
-
-    .hero {
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      justify-content: center;
-      gap: 40px;
-      flex-wrap: wrap;
-      text-align: left;
-    }
-
-    .hero-text {
-      max-width: 500px;
-    }
-
-    .hero-text h1 {
-      font-size: 2em;
-      line-height: 1.4;  
-      margin-bottom: 15px;
-      color: #1E3A8A;
-      text-align: justify;
-    }
-
-    .hero-text p {
-      font-size: 1.2em;
-      margin-bottom: 25px;
-    }
-
+    /* HERO */
+    .hero { display:flex; align-items:center; justify-content:center; gap:36px; flex-wrap:wrap; text-align:left; }
+    .hero-text { max-width:520px; }
+    .hero-text h1 { font-size:2rem; color:#1E3A8A; line-height:1.25; margin-bottom:12px; text-align:justify; }
+    .hero-text p { font-size:1.05rem; margin-bottom:18px; color:#333; }
     .hero-text button {
-      background: #1E3A8A;
-      color: white;
-      border: none;
-      padding: 12px 30px;
-      font-size: 1.1em;
-      border-radius: 8px;
-      cursor: pointer;
-      transition: background 0.3s, transform 0.2s;
+      background:#1E3A8A; color:white; border:none; padding:12px 26px; border-radius:8px; cursor:pointer;
+      font-size:1rem; transition:transform .12s, background .18s;
     }
+    .hero-text button:hover { transform:scale(1.03); background:#153373; }
+    .hero-image img { max-width:420px; width:100%; height:auto; display:block; }
 
-    .hero-text button:hover {
-      background: #153373;
-      transform: scale(1.05);
-    }
-
-    .hero-image img {
-      max-width: 400px;
-      width: 100%;
-      height: auto;
-    }
-
-    form {
-      display: flex;
-      flex-direction: column;
-      max-width: 500px;
-      margin: auto;
-    }
-
-    form label {
-      margin-bottom: 5px;
-      font-weight: bold;
-    }
-
+    /* FORM */
+    form { display:flex; flex-direction:column; gap:10px; max-width:520px; margin:auto; }
+    form label { font-weight:700; color:#333; }
     form input, form textarea {
-      margin-bottom: 15px;
-      padding: 14px;
-      border: 1px solid #ccc;
-      border-radius: 8px;
-      font-size: 1em;
+      padding:12px; border-radius:8px; border:1px solid #ccc; font-size:1rem;
     }
-
     form button {
-      background: #1E3A8A;
-      color: white;
-      border: none;
-      padding: 14px;
-      border-radius: 8px;
-      cursor: pointer;
-      font-size: 1em;
-      transition: background 0.3s, transform 0.2s;
+      margin-top:6px; padding:12px; border-radius:8px; background:#1E3A8A; color:white; border:none; cursor:pointer;
     }
 
-    form button:hover {
-      background: #153373;
-      transform: scale(1.05);
-    }
-
-    /* 🔧 RODAPÉ AJUSTADO */
+    /* RODAPÉ - ajustável */
     footer {
-      background: #0A1F44;
-      color: #f1f1f1;
-      text-align: center;
-      padding: 25px;
-      margin-top: 40px;
-      width: 100%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
+      background:#0A1F44; color:#f1f1f1; padding:22px 20px; margin-top:40px; width:100%;
+      display:flex; justify-content:center; align-items:center;
     }
-
     footer p {
-      font-size: 1em;
-      max-width: 90%;
-      word-wrap: break-word;
-      white-space: normal;
-      overflow-wrap: break-word;
-      line-height: 1.5;
+      margin:0; font-size:1rem; max-width:980px; width:100%;
+      text-align:center; white-space:normal; word-wrap:break-word; overflow-wrap:break-word; line-height:1.4;
     }
 
-    @media (max-width: 350px) {
-      footer p {
-        font-size: 0.9em;
-      }
+    /* Responsividade média */
+    @media (max-width:992px) {
+      .hero { flex-direction:column; text-align:center; }
+      .hero-text h1 { font-size:1.8rem; text-align:center; }
+      .grid { grid-template-columns:repeat(2,1fr); }
+      .card-container { max-width:720px; }
     }
 
-    @media (max-width: 992px) {
-      .hero {
-        flex-direction: column;
-        text-align: center;
-      }
-      .hero-text h1 {
-        font-size: 1.8em;
-        text-align: center;
-      }
-      .hero-image img {
-        max-width: 300px;
-      }
-      .grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
+    /* Mobile */
+    @media (max-width:576px) {
+      header { padding:12px 18px; }
+      .hamburger { display:flex; }
+      .nav-links { display:none; width:100%; flex-direction:column; gap:0; margin-top:10px; background:transparent; }
+      .nav-links.active { display:flex; }
+      .nav-links a { padding:12px 16px; border-radius:8px; }
+      .hero-text h1 { font-size:1.6rem; text-align:center; }
+      .hero-text p { font-size:1rem; }
+      .grid { grid-template-columns:1fr; gap:14px; }
+      /* card container lateral spacing so it doesn't touch edges */
+      .card-container { margin:20px 14px; padding:28px 18px; }
+      .hero-image img { max-width:320px; }
+      footer { padding:18px 12px; }
+      footer p { font-size:0.95rem; }
     }
 
-    @media (max-width: 576px) {
-      .hero-text h1 {
-        font-size: 1.6em;
-        text-align: center;
-      }
-      .hero-text p {
-        font-size: 1em;
-      }
-      .grid {
-        grid-template-columns: 1fr;
-        gap: 15px;
-      }
-
-      .hamburger {
-        display: flex;
-      }
-
-      header nav .nav-links {
-        display: none;
-        flex-direction: column;
-        width: 100%;
-        margin-top: 10px;
-      }
-
-      header nav .nav-links.active {
-        display: flex;
-      }
-
-      .card-container {
-        margin: 20px 15px;
-        padding: 30px 20px;
-      }
+    /* very small screens */
+    @media (max-width:360px) {
+      .hero-text h1 { font-size:1.45rem; }
+      footer p { font-size:0.9rem; }
     }
   </style>
 </head>
@@ -294,11 +136,15 @@
 
   <header>
     <nav>
-      <div class="logo"><strong>Presença Fácil</strong></div>
-      <div class="hamburger" id="hamburger">
+      <div class="logo">Presença Fácil</div>
+
+      <!-- hamburger (mobile) -->
+      <div class="hamburger" id="hamburger" aria-label="Abrir menu" role="button" tabindex="0">
         <div></div><div></div><div></div>
       </div>
-      <div class="nav-links" id="nav-links">
+
+      <!-- nav links -->
+      <div class="nav-links" id="nav-links" aria-hidden="true">
         <a href="#produto">O Produto</a>
         <a href="#funcionalidades">Funcionalidades</a>
         <a href="#vantagens">Vantagens</a>
@@ -308,39 +154,111 @@
     </nav>
   </header>
 
-  <section class="card-container hero">
+  <!-- HERO -->
+  <section class="card-container hero" aria-label="Apresentação do produto">
     <div class="hero-text">
       <h1>Presença fácil: autonomia para quem participa, controle para quem organiza.</h1>
-      <p>Modernize os seus eventos através do registro rápido de presença via QR Code e obtenha relatórios simplificados automáticos.</p>
-      <button onclick="document.getElementById('contato').scrollIntoView({behavior:'smooth'})">
-        Quero saber mais &rarr;
-      </button>
+      <p>Modernize os seus eventos através do registro rápido de presença via QR Code e obtenha relatórios digitais automáticos.</p>
+      <button type="button" onclick="document.getElementById('contato').scrollIntoView({behavior:'smooth'})">Quero saber mais →</button>
     </div>
-    <div class="hero-image">
-      <img src="Ilustração.png" alt="Ilustração do Produto">
+    <div class="hero-image" aria-hidden="false">
+      <!-- verifique o nome exato do arquivo da imagem no repositório -->
+      <img src="Ilustração.png" alt="Ilustração do produto Presença Fácil">
     </div>
   </section>
 
+  <!-- O PRODUTO -->
   <section id="produto" class="card-container">
     <h2>O Produto</h2>
-    <p style="text-align: justify;">
-      O Sistema Presença Fácil é uma solução completa para otimizar o gerenciamento de eventos. 
-      Com um QR Code exclusivo para cada evento, os participantes podem registrar sua presença de forma rápida e autônoma, 
-      evitando filas e dispensando a necessidade de pessoal para registros manuais, além de reduzir o uso de material. 
-      Ao final, o sistema gera relatórios digitais automáticos, tornando o gerenciamento do evento mais simples, ágil e eficiente.
+    <p style="text-align:justify;">
+      O Sistema Presença Fácil é uma solução completa para otimizar o gerenciamento de eventos.
+      Com um QR Code exclusivo para cada evento, os participantes registram sua presença de forma rápida e autônoma,
+      evitando filas e reduzindo a necessidade de pessoal para registros manuais. Ao final, o sistema gera relatórios digitais automáticos,
+      tornando o gerenciamento mais simples, ágil e eficiente.
     </p>
   </section>
 
+  <!-- FUNCIONALIDADES -->
+  <section id="funcionalidades" class="card-container">
+    <h2>Funcionalidades</h2>
+    <div class="grid" role="list">
+      <div class="card" role="listitem"><h3>QR Code</h3><p>Registro rápido em segundos.</p></div>
+      <div class="card" role="listitem"><h3>Relatórios</h3><p>Dados organizados em relatórios digitais claros.</p></div>
+      <div class="card" role="listitem"><h3>Gestão Online</h3><p>Tudo gerenciado de forma online.</p></div>
+      <div class="card" role="listitem"><h3>Segurança</h3><p>Proteção das informações dos participantes.</p></div>
+    </div>
+  </section>
+
+  <!-- VANTAGENS -->
+  <section id="vantagens" class="card-container">
+    <h2>Vantagens</h2>
+    <div class="grid" role="list">
+      <div class="card" role="listitem"><h3>Modernização</h3><p>Gestão do evento mais moderna.</p></div>
+      <div class="card" role="listitem"><h3>Praticidade</h3><p>Facilidade para organizadores e público.</p></div>
+      <div class="card" role="listitem"><h3>Economia</h3><p>Redução de custos com papel e pessoal.</p></div>
+      <div class="card" role="listitem"><h3>Agilidade</h3><p>Relatórios digitais rápidos, sem esforço manual.</p></div>
+    </div>
+  </section>
+
+  <!-- SOBRE -->
+  <section id="sobre" class="card-container">
+    <h2>Sobre Nós</h2>
+    <p style="text-align:justify;">
+      Somos uma equipe dedicada a criar soluções tecnológicas para simplificar o gerenciamento de eventos.
+      Unimos inovação, praticidade e eficiência no registro e controle de presença.
+    </p>
+  </section>
+
+  <!-- CONTATO -->
+  <section id="contato" class="card-container">
+    <h2>Entre em Contato</h2>
+    <form onsubmit="enviarFormulario(event)" aria-label="Formulário de contato">
+      <label for="nome">Nome</label>
+      <input id="nome" name="nome" type="text" placeholder="Seu nome" required>
+
+      <label for="email">E-mail</label>
+      <input id="email" name="email" type="email" placeholder="Seu e-mail" required>
+
+      <label for="mensagem">Mensagem</label>
+      <textarea id="mensagem" name="mensagem" rows="5" placeholder="Sua mensagem" required></textarea>
+
+      <button type="submit">Enviar</button>
+    </form>
+  </section>
+
+  <!-- FOOTER -->
   <footer>
     <p>&copy; 2025 Presença Fácil — Todos os direitos reservados.</p>
   </footer>
 
   <script>
-    const hamburger = document.getElementById('hamburger');
-    const navLinks = document.getElementById('nav-links');
-    hamburger.addEventListener('click', () => navLinks.classList.toggle('active'));
-    navLinks.querySelectorAll('a').forEach(link => link.addEventListener('click', () => navLinks.classList.remove('active')));
-  </script>
+    // Form simulation
+    function enviarFormulario(e) {
+      e.preventDefault();
+      alert('Mensagem enviada com sucesso! (simulação)');
+      e.target.reset();
+    }
 
+    // Hamburger toggle
+    (function() {
+      const hamburger = document.getElementById('hamburger');
+      const navLinks = document.getElementById('nav-links');
+
+      function toggleMenu() {
+        navLinks.classList.toggle('active');
+        // accessibility
+        const hidden = !navLinks.classList.contains('active');
+        navLinks.setAttribute('aria-hidden', String(!navLinks.classList.contains('active')));
+      }
+
+      hamburger.addEventListener('click', toggleMenu);
+      hamburger.addEventListener('keydown', (ev) => { if(ev.key === 'Enter' || ev.key === ' ') toggleMenu(); });
+
+      // Close menu when clicking a nav link (works both mobile and desktop)
+      navLinks.querySelectorAll('a').forEach(a => {
+        a.addEventListener('click', () => navLinks.classList.remove('active'));
+      });
+    })();
+  </script>
 </body>
 </html>
