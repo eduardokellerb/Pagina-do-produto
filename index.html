@@ -73,7 +73,6 @@
       background-color: white;
     }
 
-    /* Ajuste para âncoras com header sticky */
     section {
       scroll-margin-top: 80px;
     }
@@ -221,11 +220,13 @@
       margin-top: 40px;
     }
 
+    /* 🔧 ALTERAÇÃO AQUI: removido nowrap e truncamento */
     footer p {
       font-size: 1em;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
+      white-space: normal;
+      overflow: visible;
+      text-overflow: unset;
+      line-height: 1.4;
     }
 
     @media (max-width: 350px) {
@@ -234,7 +235,6 @@
       }
     }
 
-    /* Responsividade do menu, grids e card-container */
     @media (max-width: 992px) {
       .hero {
         flex-direction: column;
@@ -265,21 +265,21 @@
         gap: 15px;
       }
 
-      /* Menu hamburguer */
       .hamburger {
         display: flex;
       }
+
       header nav .nav-links {
         display: none;
         flex-direction: column;
         width: 100%;
         margin-top: 10px;
       }
+
       header nav .nav-links.active {
         display: flex;
       }
 
-      /* Card-container menor nas laterais */
       .card-container {
         margin: 20px 15px;
         padding: 30px 20px;
@@ -379,14 +379,12 @@
   </footer>
 
   <script>
-    // Formulário simulado
     function enviarFormulario(event) {
       event.preventDefault();
       alert("Mensagem enviada com sucesso! (simulação)");
       document.querySelector("form").reset();
     }
 
-    // Menu hamburguer funcional
     const hamburger = document.getElementById('hamburger');
     const navLinks = document.getElementById('nav-links');
 
@@ -394,7 +392,6 @@
       navLinks.classList.toggle('active');
     });
 
-    // Fecha menu ao clicar em um link
     const links = navLinks.querySelectorAll('a');
     links.forEach(link => {
       link.addEventListener('click', () => {
@@ -405,3 +402,4 @@
 
 </body>
 </html>
+
